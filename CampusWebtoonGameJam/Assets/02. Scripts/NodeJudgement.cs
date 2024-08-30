@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class NodeJudgement : MonoBehaviour
 {
-    Transform node;
-    Transform judgementLine; // 판정 위치 
+    [SerializeField] private JudgementUI judgementUI;
+
+    Transform note;
+    [SerializeField] private Transform judgementLine; // 판정 위치 
 
     public float perfectTiming = 0.05f;
     public float goodTiming = 0.1f;
@@ -36,27 +38,39 @@ public class NodeJudgement : MonoBehaviour
     // combo
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        node = collision.transform;
+        Debug.Log("얘ㅔ에에");
+        note = collision.transform;
         nodeInputData = false;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
+        Debug.Log("워어");
         if (!nodeInputData)
         {
             AccuracyProcessing(AccuracyStatus.bad);
         }
-        node = null;
+        note = null;
         nodeInputData = false;
     }
     /// <summary>
     /// input 들어오면 호출하는 판정 요청 함수
     /// </summary>
-    public void JudgementRequest()
+    public void JudgementRequest(NoteType noteType)
     {
-        if (node != null)
+        if (note != null)
         {
-            nodeInputData = true;
-            AccuracyProcessing(AccuracyCalculation());
+            /*if (noteType == note.GetComponent<Note>().noteType)
+            {
+                nodeInputData = true;
+                AccuracyProcessing(AccuracyCalculation());
+
+            }
+            else
+            {
+
+                Destroy(note.gameObject);
+                AccuracyProcessing(AccuracyStatus.bad);
+            }*/
         }
     }
     /// <summary>
@@ -65,7 +79,7 @@ public class NodeJudgement : MonoBehaviour
     /// <returns></returns>
     AccuracyStatus AccuracyCalculation()
     {
-        float distance = Mathf.Abs(node.position.x - judgementLine.position.x);
+        float distance = Mathf.Abs(note.position.x - judgementLine.position.x);
 
         AccuracyStatus value =
             distance <= perfectTiming ? AccuracyStatus.perfect :
@@ -83,19 +97,31 @@ public class NodeJudgement : MonoBehaviour
         switch (status)
         {
             case AccuracyStatus.perfect:
+
                 score += 500 * scoreMultiple;
-                comboCount++;
+                SetComboCount(1);
+                if (HP < 5) HP++;
+
+                judgementUI.SetAccuracyStatusText(AccuracyStatus.perfect);
+                judgementUI.SetHPObj(HP);
                 feverAmount += maxFeverAmount / 10f;
                 break;
             case AccuracyStatus.good:
+
                 score += 100 * scoreMultiple;
-                comboCount++;
+                SetComboCount(1);
+
+                judgementUI.SetAccuracyStatusText(AccuracyStatus.good);
                 feverAmount += maxFeverAmount / 20f;
                 break;
             case AccuracyStatus.bad:
-                comboCount = 0;
+
+                SetComboCount(-comboCount);
                 if (--HP == 0)
                 { Debug.Log("GAME OVER"); }
+
+                judgementUI.SetAccuracyStatusText(AccuracyStatus.bad);
+                judgementUI.SetHPObj(HP);
                 break;
             default:
                 break;
@@ -103,16 +129,34 @@ public class NodeJudgement : MonoBehaviour
         if (feverAmount >= maxFeverAmount && !IsFeverTime)
         {
             Debug.Log("fever time");
-            // fever 함수.. 코루틴..이던..
-            // IsFeverTime = true;
-            // scoreMultiple = 1.25f; 
-            // 시간 카운트하고
-            //
-            // 끝나면
-            // feverAmount = 0;
-            // scoreMultiple = 1f; 
-            // IsFeverTime = false; 
+            StartCoroutine(FeverTime()); 
         }
+    }
+
+    void SetComboCount(int changevalue)
+    {
+        comboCount += changevalue;
+        judgementUI.SetComboText(comboCount);
+    }
+    IEnumerator FeverTime()
+    {
+
+        IsFeverTime = true;
+        scoreMultiple = 1.25f;
+
+        float maxFeverTime = 5f;
+        float feverTime = maxFeverTime;
+        while(feverTime>0)
+        {
+            yield return new WaitForSecondsRealtime(0.02f);
+            feverTime -= 0.02f;
+            judgementUI.ControlFeverGauge(feverTime / maxFeverTime);
+        } 
+
+        feverAmount = 0;
+        scoreMultiple = 1f; 
+        IsFeverTime = false; 
+
     }
 }
 public enum AccuracyStatus
