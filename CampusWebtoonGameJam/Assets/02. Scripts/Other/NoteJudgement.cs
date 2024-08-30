@@ -46,13 +46,11 @@ public class NoteJudgement : Singleton<NoteJudgement>
     // combo
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("얘ㅔ에에");
         note = collision.transform;
         noteInputData = false;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log("워어");
         if (!noteInputData)
         {
             AccuracyProcessing(AccuracyStatus.bad);
@@ -67,17 +65,18 @@ public class NoteJudgement : Singleton<NoteJudgement>
     {
         if (note != null)
         {
+            noteInputData = true;
             if (noteType == note.GetComponent<Note>().type)
             {
-                noteInputData = true;
                 AccuracyProcessing(AccuracyCalculation());
+                Destroy(note.gameObject);
 
             }
             else
             {
 
-                Destroy(note.gameObject);
                 AccuracyProcessing(AccuracyStatus.bad);
+                Destroy(note.gameObject);
             }
         }
     }
@@ -113,6 +112,7 @@ public class NoteJudgement : Singleton<NoteJudgement>
                 judgementUI.SetAccuracyStatusText(AccuracyStatus.perfect);
                 judgementUI.SetHPObj(HP);
                 feverAmount += maxFeverAmount / 10f;
+                if (!IsFeverTime) judgementUI.ControlFeverGauge(feverAmount / maxFeverAmount);
                 break;
             case AccuracyStatus.good:
 
@@ -121,6 +121,7 @@ public class NoteJudgement : Singleton<NoteJudgement>
 
                 judgementUI.SetAccuracyStatusText(AccuracyStatus.good);
                 feverAmount += maxFeverAmount / 20f;
+                if(!IsFeverTime) judgementUI.ControlFeverGauge(feverAmount / maxFeverAmount);
                 break;
             case AccuracyStatus.bad:
 

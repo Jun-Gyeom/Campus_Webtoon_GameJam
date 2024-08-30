@@ -52,26 +52,31 @@ public class NoteManager : Singleton<NoteManager>
 
     private void SpawnNote(NoteType type)
     {
+        GameObject obj;
         // 노트 타입에 맞는 노트 생성 
         switch (type)
         {
             case NoteType.Up:
-                Instantiate(upNotePrefab, createNotePosition.position, Quaternion.identity);
+                obj = Instantiate(upNotePrefab, createNotePosition.position, Quaternion.identity);
+                obj.GetComponent<Note>().type = NoteType.Up;
                 Debug.Log("위쪽 노트 생성");
                 return;
             
             case NoteType.Down:
-                Instantiate(downNotePrefab, createNotePosition.position, Quaternion.identity);
+                obj = Instantiate(downNotePrefab, createNotePosition.position, Quaternion.identity);
+                obj.GetComponent<Note>().type = NoteType.Down; 
                 Debug.Log("아래쪽 노트 생성");
                 return;
             
             case NoteType.Left:
-                Instantiate(leftNotePrefab, createNotePosition.position, Quaternion.identity);
+                obj = Instantiate(leftNotePrefab, createNotePosition.position, Quaternion.identity);
+                obj.GetComponent<Note>().type = NoteType.Left; 
                 Debug.Log("왼쪽 노트 생성");
                 return;
             
             case NoteType.Right:
-                Instantiate(rightNotePrefab, createNotePosition.position, Quaternion.identity);
+                obj = Instantiate(rightNotePrefab, createNotePosition.position, Quaternion.identity);
+                obj.GetComponent<Note>().type = NoteType.Right; 
                 Debug.Log("오른쪽 노트 생성");
                 return;
             

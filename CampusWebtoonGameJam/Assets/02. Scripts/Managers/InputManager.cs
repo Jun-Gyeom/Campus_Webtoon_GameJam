@@ -27,6 +27,21 @@ public class InputManager : Singleton<InputManager>
         InputAsset.GamePlay.Down.performed += ctx => Down();
         InputAsset.GamePlay.Left.performed += ctx => Left();
         InputAsset.GamePlay.Right.performed += ctx => Right();
+        switch(Input.inputString)
+        {
+            case "w":
+                Up();
+                break;
+            case "s":
+                Down();
+                break;
+            case "a":
+                Left();
+                break;
+            case "d":
+                Right();
+                break;
+        }
     }
 
     private void OnEnable()
