@@ -6,14 +6,14 @@ using UnityEngine;
 public class NodeJudgement : MonoBehaviour
 {
     Transform node;
-    Transform judgementLine; // ÆÇÁ¤ À§Ä¡ 
+    Transform judgementLine; // íŒì • ìœ„ì¹˜ 
 
     public float perfectTiming = 0.05f;
     public float goodTiming = 0.1f;
 
-    bool nodeInputData = false; // ÇöÀç ³ëµå¿¡ ´ëÇÑ ÀÔ·Â °ªÀÌ ÀÖ¾ú´ÂÁö
+    bool nodeInputData = false; // í˜„ì¬ ë…¸ë“œì— ëŒ€í•œ ì…ë ¥ ê°’ì´ ìˆì—ˆëŠ”ì§€
 
-    // ¾ê³×´Â °ÔÀÓ ¸Å´ÏÀú¿¡ ÀÖ¾î¾ß °ÙÁö?
+    // ì–˜ë„¤ëŠ” ê²Œì„ ë§¤ë‹ˆì €ì— ìˆì–´ì•¼ ê²Ÿì§€?
     int comboCount = 0;
     int HP = 5;
     float score = 0;
@@ -22,16 +22,16 @@ public class NodeJudgement : MonoBehaviour
     float feverAmount = 0;
     float maxFeverAmount = 100;
 
-    // 1. ÇöÀç ÆÇÁ¤¼±¿¡ ³ëÆ®°¡ ÀÖ´ÂÁö. (ontriggerEnter·Î ³Ö°í, ÀÔ·Â È®ÀÎ º¯¼ö ÃÊ±âÈ­  0
-    // 2-1. ÀÖ´Ù¸é ÀÔ·ÂÀÌ µé¾î¿Ô´ÂÁö.                                               0
-    // 2-2. ¾ø´Ù¸é miss Ã³¸®                                                       0
-    // 3-1. ³ëÆ®°¡ ¾ø´Ù¸é miss Ã³¸®                                                0
-    // 3-2. ³ëÆ®°¡ ÀÖ´Ù¸é perfect, great Á¤È®µµ ÆÇ´Ü,                               0
+    // 1. í˜„ì¬ íŒì •ì„ ì— ë…¸íŠ¸ê°€ ìˆëŠ”ì§€. (ontriggerEnterë¡œ ë„£ê³ , ì…ë ¥ í™•ì¸ ë³€ìˆ˜ ì´ˆê¸°í™”  0
+    // 2-1. ìˆë‹¤ë©´ ì…ë ¥ì´ ë“¤ì–´ì™”ëŠ”ì§€.                                               0
+    // 2-2. ì—†ë‹¤ë©´ miss ì²˜ë¦¬                                                       0
+    // 3-1. ë…¸íŠ¸ê°€ ì—†ë‹¤ë©´ miss ì²˜ë¦¬                                                0
+    // 3-2. ë…¸íŠ¸ê°€ ìˆë‹¤ë©´ perfect, great ì •í™•ë„ íŒë‹¨,                               0
     //
     // combo count                                                                0
     //
     // UI 
-    // ÆÇÁ¤ Á¤È®µµ (perfect, great, miss)
+    // íŒì • ì •í™•ë„ (perfect, great, miss)
     // life
     // combo
     private void OnTriggerEnter2D(Collider2D collision)
@@ -49,8 +49,9 @@ public class NodeJudgement : MonoBehaviour
         nodeInputData = false;
     }
     /// <summary>
-    /// input µé¾î¿À¸é È£ÃâÇÏ´Â ÆÇÁ¤ ¿äÃ» ÇÔ¼ö
+    /// input ë“¤ì–´ì˜¤ë©´ í˜¸ì¶œí•˜ëŠ” íŒì • ìš”ì²­ í•¨ìˆ˜
     /// </summary>
+    
     public void JudgementRequest()
     {
         if (node != null)
@@ -60,7 +61,7 @@ public class NodeJudgement : MonoBehaviour
         }
     }
     /// <summary>
-    /// Á¤È®µµ °è»ê
+    /// ì •í™•ë„ ê³„ì‚°
     /// </summary>
     /// <returns></returns>
     AccuracyStatus AccuracyCalculation()
@@ -74,7 +75,7 @@ public class NodeJudgement : MonoBehaviour
         return value;
     }
     /// <summary>
-    /// Á¤È®µµ Ã³¸®
+    /// ì •í™•ë„ ì²˜ë¦¬
     /// </summary>
     /// <param name="status"></param>
     private void AccuracyProcessing(AccuracyStatus status)
@@ -103,12 +104,12 @@ public class NodeJudgement : MonoBehaviour
         if (feverAmount >= maxFeverAmount && !IsFeverTime)
         {
             Debug.Log("fever time");
-            // fever ÇÔ¼ö.. ÄÚ·çÆ¾..ÀÌ´ø..
+            // fever í•¨ìˆ˜.. ì½”ë£¨í‹´..ì´ë˜..
             // IsFeverTime = true;
             // scoreMultiple = 1.25f; 
-            // ½Ã°£ Ä«¿îÆ®ÇÏ°í
+            // ì‹œê°„ ì¹´ìš´íŠ¸í•˜ê³ 
             //
-            // ³¡³ª¸é
+            // ëë‚˜ë©´
             // feverAmount = 0;
             // scoreMultiple = 1f; 
             // IsFeverTime = false; 

@@ -8,8 +8,28 @@ public class GameManager : Singleton<GameManager>
     public float HighScore { get; set; }    // 최고 점수
     public int Health { get; set; }         // 현재 HP
     public int MaxHealth { get; set; }      // 최대 HP
-    void Start()
+
+    // 위쪽 노트 입력 
+    public void OnUpNoteInput()
     {
-        NoteManager.Instance.StartChart(1);
+        
+    }
+
+    // 아래쪽 노트 입력 
+    public void OnDownNoteInput()
+    {
+        
+    }
+
+    // 왼쪽 노트 입력 
+    public void OnLeftNoteInput()
+    {
+        
+    }
+
+    // 오른쪽 노트 입력 
+    public void OnRightNoteInput()
+    {
+        
     }
 }
