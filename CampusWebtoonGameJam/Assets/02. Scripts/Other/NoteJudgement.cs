@@ -25,8 +25,9 @@ public class NoteJudgement : Singleton<NoteJudgement>
     float feverAmount = 0;
     float maxFeverAmount = 100;
 
-    private void Start()
+    private void Awake()
     {
+
         perfectScope = perfectTimingLine.GetComponent<BoxCollider2D>().size.x / 2;
         goodScope = judgementLine.GetComponent<BoxCollider2D>().size.x / 2;
         Debug.Log(perfectScope);
@@ -66,9 +67,9 @@ public class NoteJudgement : Singleton<NoteJudgement>
     {
         if (note != null)
         {
-            /*if (noteType == note.GetComponent<Note>().noteType)
+            if (noteType == note.GetComponent<Note>().type)
             {
-                nodeInputData = true;
+                noteInputData = true;
                 AccuracyProcessing(AccuracyCalculation());
 
             }
@@ -77,7 +78,7 @@ public class NoteJudgement : Singleton<NoteJudgement>
 
                 Destroy(note.gameObject);
                 AccuracyProcessing(AccuracyStatus.bad);
-            }*/
+            }
         }
     }
     /// <summary>
