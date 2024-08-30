@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b94e18b204fc8545ab277530114f587, type: 3}
-  m_Name: Chart 1
+  m_Name: Test Chart 1
   m_EditorClassIdentifier: 
-  chartID: 0
+  chartID: 1
   music: Test
   noteTravelTime: 3
   notes:
@@ -26,9 +26,3 @@ MonoBehaviour:
     time: 5
   - type: 1
     time: 5
-  - type: 1
-    time: 6
-  - type: 1
-    time: 6.5
-  - type: 2
-    time: 6.75
