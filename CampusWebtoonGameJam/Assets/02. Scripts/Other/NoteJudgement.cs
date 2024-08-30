@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class NoteJudgement : MonoBehaviour
+public class NoteJudgement : Singleton<NoteJudgement>
 {
     [SerializeField] private JudgementUI judgementUI;
 
@@ -25,7 +25,7 @@ public class NoteJudgement : MonoBehaviour
     float feverAmount = 0;
     float maxFeverAmount = 100;
 
-    private void Awake()
+    private void Start()
     {
         perfectScope = perfectTimingLine.GetComponent<BoxCollider2D>().size.x / 2;
         goodScope = judgementLine.GetComponent<BoxCollider2D>().size.x / 2;

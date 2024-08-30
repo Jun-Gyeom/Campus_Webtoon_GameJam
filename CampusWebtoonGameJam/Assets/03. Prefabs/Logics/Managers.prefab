@@ -170,6 +170,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: NoteManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6481661143113707690, guid: 11653c245e4e73547ab7ca267e1174ca, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 6481661143113707690, guid: 11653c245e4e73547ab7ca267e1174ca, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.05
+      objectReference: {fileID: 0}
     - target: {fileID: 8696042705396475165, guid: 11653c245e4e73547ab7ca267e1174ca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
