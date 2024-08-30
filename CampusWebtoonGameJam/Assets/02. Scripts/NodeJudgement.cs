@@ -9,9 +9,10 @@ public class NodeJudgement : MonoBehaviour
 
     Transform note;
     [SerializeField] private Transform judgementLine; // 판정 위치 
+    [SerializeField] private Transform perfectTimingLine; // 판정 위치 
 
-    public float perfectTiming = 0.05f;
-    public float goodTiming = 0.1f;
+    float perfectScope; // perfect 범위
+    float goodScope; // good 범위
 
     bool nodeInputData = false; // 현재 노드에 대한 입력 값이 있었는지
 
@@ -24,6 +25,12 @@ public class NodeJudgement : MonoBehaviour
     float feverAmount = 0;
     float maxFeverAmount = 100;
 
+    private void Awake()
+    {
+        perfectScope = perfectTimingLine.GetComponent<BoxCollider2D>().size.x / 2;
+        goodScope  = judgementLine.GetComponent<BoxCollider2D>().size.x / 2;
+        Debug.Log(perfectScope);
+    }
     // 1. 현재 판정선에 노트가 있는지. (ontriggerEnter로 넣고, 입력 확인 변수 초기화  0
     // 2-1. 있다면 입력이 들어왔는지.                                               0
     // 2-2. 없다면 miss 처리                                                       0
@@ -82,8 +89,8 @@ public class NodeJudgement : MonoBehaviour
         float distance = Mathf.Abs(note.position.x - judgementLine.position.x);
 
         AccuracyStatus value =
-            distance <= perfectTiming ? AccuracyStatus.perfect :
-            distance <= goodTiming ? AccuracyStatus.good :
+            distance <= perfectScope ? AccuracyStatus.perfect :
+            distance <= goodScope ? AccuracyStatus.good :
             AccuracyStatus.bad;
         return value;
     }
