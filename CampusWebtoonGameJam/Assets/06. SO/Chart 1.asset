@@ -14,21 +14,501 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chartID: 0
   music: Sounds_BGM_InGame
-  noteTravelTime: 3
+  noteTravelTime: 1
   notes:
   - type: 1
-    time: 0
-  - type: 2
     time: 1
+  - type: 2
+    time: 1.6
   - type: 3
-    time: 2
+    time: 2.2
   - type: 4
-    time: 5
+    time: 2.8
+  - type: 4
+    time: 3.4
   - type: 1
-    time: 5
+    time: 4
+  - type: 3
+    time: 4.6
+  - type: 2
+    time: 5.2
+  - type: 2
+    time: 5.8
+  - type: 2
+    time: 6.4
+  - type: 3
+    time: 7
   - type: 1
-    time: 6
+    time: 7.6
+  - type: 4
+    time: 8.2
   - type: 1
-    time: 6.5
+    time: 8.8
+  - type: 3
+    time: 9.4
   - type: 2
     time: 10
+  - type: 2
+    time: 11.5
+  - type: 1
+    time: 11.7
+  - type: 1
+    time: 11.9
+  - type: 3
+    time: 12.7
+  - type: 3
+    time: 12.9
+  - type: 1
+    time: 13.1
+  - type: 1
+    time: 13.9
+  - type: 1
+    time: 14.1
+  - type: 4
+    time: 14.3
+  - type: 4
+    time: 15.1
+  - type: 1
+    time: 15.3
+  - type: 2
+    time: 15.5
+  - type: 1
+    time: 16.3
+  - type: 2
+    time: 16.5
+  - type: 4
+    time: 16.7
+  - type: 2
+    time: 17.5
+  - type: 2
+    time: 17.7
+  - type: 1
+    time: 17.9
+  - type: 3
+    time: 18.7
+  - type: 3
+    time: 18.9
+  - type: 4
+    time: 19.1
+  - type: 4
+    time: 19.9
+  - type: 2
+    time: 20.1
+  - type: 1
+    time: 20.3
+  - type: 1
+    time: 21.6
+  - type: 2
+    time: 22.2
+  - type: 2
+    time: 22.8
+  - type: 2
+    time: 23.4
+  - type: 2
+    time: 23.6
+  - type: 1
+    time: 23.8
+  - type: 1
+    time: 24.4
+  - type: 3
+    time: 25
+  - type: 3
+    time: 25.6
+  - type: 4
+    time: 26.2
+  - type: 2
+    time: 26.4
+  - type: 1
+    time: 26.6
+  - type: 2
+    time: 27.2
+  - type: 1
+    time: 27.8
+  - type: 2
+    time: 28.4
+  - type: 1
+    time: 29
+  - type: 3
+    time: 29.2
+  - type: 2
+    time: 29.4
+  - type: 4
+    time: 30
+  - type: 4
+    time: 30.6
+  - type: 2
+    time: 31.2
+  - type: 1
+    time: 31.8
+  - type: 4
+    time: 32
+  - type: 2
+    time: 32.2
+  - type: 1
+    time: 32.8
+  - type: 1
+    time: 33.4
+  - type: 4
+    time: 34
+  - type: 4
+    time: 34.6
+  - type: 3
+    time: 34.8
+  - type: 3
+    time: 35
+  - type: 1
+    time: 35.6
+  - type: 4
+    time: 36.2
+  - type: 1
+    time: 36.8
+  - type: 2
+    time: 37
+  - type: 3
+    time: 37.2
+  - type: 1
+    time: 37.4
+  - type: 4
+    time: 38
+  - type: 4
+    time: 38.6
+  - type: 2
+    time: 39.2
+  - type: 1
+    time: 39.8
+  - type: 1
+    time: 40
+  - type: 1
+    time: 40.2
+  - type: 1
+    time: 40.8
+  - type: 2
+    time: 41.4
+  - type: 2
+    time: 42
+  - type: 1
+    time: 42.6
+  - type: 1
+    time: 42.8
+  - type: 2
+    time: 43
+  - type: 3
+    time: 43.3
+  - type: 3
+    time: 43.6
+  - type: 4
+    time: 44.2
+  - type: 4
+    time: 44.5
+  - type: 1
+    time: 45.1
+  - type: 1
+    time: 45.4
+  - type: 2
+    time: 46
+  - type: 2
+    time: 46.3
+  - type: 1
+    time: 46.9
+  - type: 3
+    time: 47.2
+  - type: 1
+    time: 47.8
+  - type: 2
+    time: 48.1
+  - type: 2
+    time: 48.7
+  - type: 4
+    time: 49
+  - type: 4
+    time: 49.6
+  - type: 3
+    time: 49.9
+  - type: 1
+    time: 50.5
+  - type: 2
+    time: 50.8
+  - type: 1
+    time: 51.4
+  - type: 1
+    time: 51.7
+  - type: 3
+    time: 52.3
+  - type: 2
+    time: 52.5
+  - type: 3
+    time: 52.7
+  - type: 2
+    time: 53.3
+  - type: 2
+    time: 53.9
+  - type: 2
+    time: 54.5
+  - type: 2
+    time: 55.1
+  - type: 1
+    time: 55.3
+  - type: 3
+    time: 55.5
+  - type: 4
+    time: 56.1
+  - type: 4
+    time: 56.7
+  - type: 2
+    time: 57.3
+  - type: 2
+    time: 57.9
+  - type: 1
+    time: 58.1
+  - type: 3
+    time: 58.3
+  - type: 1
+    time: 58.9
+  - type: 2
+    time: 59.1
+  - type: 2
+    time: 59.3
+  - type: 1
+    time: 59.9
+  - type: 4
+    time: 60.1
+  - type: 1
+    time: 60.3
+  - type: 3
+    time: 60.9
+  - type: 3
+    time: 61.1
+  - type: 1
+    time: 61.3
+  - type: 2
+    time: 62.3
+  - type: 4
+    time: 62.9
+  - type: 1
+    time: 63.5
+  - type: 4
+    time: 64.1
+  - type: 3
+    time: 64.3
+  - type: 1
+    time: 64.5
+  - type: 3
+    time: 65.1
+  - type: 2
+    time: 65.7
+  - type: 4
+    time: 66.3
+  - type: 1
+    time: 66.9
+  - type: 2
+    time: 67.1
+  - type: 1
+    time: 67.3
+  - type: 2
+    time: 67.9
+  - type: 3
+    time: 68.5
+  - type: 3
+    time: 69.1
+  - type: 1
+    time: 69.7
+  - type: 2
+    time: 69.9
+  - type: 4
+    time: 70.1
+  - type: 4
+    time: 71.3
+  - type: 4
+    time: 71.5
+  - type: 4
+    time: 71.7
+  - type: 4
+    time: 72.3
+  - type: 4
+    time: 72.5
+  - type: 4
+    time: 72.7
+  - type: 4
+    time: 72.9
+  - type: 4
+    time: 73.1
+  - type: 4
+    time: 73.3
+  - type: 4
+    time: 73.9
+  - type: 4
+    time: 74.1
+  - type: 4
+    time: 74.3
+  - type: 4
+    time: 74.5
+  - type: 4
+    time: 74.7
+  - type: 4
+    time: 74.9
+  - type: 1
+    time: 76.1
+  - type: 2
+    time: 76.7
+  - type: 3
+    time: 77.3
+  - type: 4
+    time: 77.9
+  - type: 3
+    time: 78.1
+  - type: 2
+    time: 78.3
+  - type: 3
+    time: 78.9
+  - type: 3
+    time: 79.5
+  - type: 2
+    time: 80.1
+  - type: 1
+    time: 80.7
+  - type: 4
+    time: 80.9
+  - type: 3
+    time: 81.1
+  - type: 2
+    time: 81.7
+  - type: 1
+    time: 82.3
+  - type: 4
+    time: 82.9
+  - type: 1
+    time: 83.5
+  - type: 2
+    time: 83.7
+  - type: 4
+    time: 83.9
+  - type: 2
+    time: 84.5
+  - type: 3
+    time: 85.1
+  - type: 3
+    time: 85.7
+  - type: 1
+    time: 86.3
+  - type: 2
+    time: 86.5
+  - type: 4
+    time: 86.7
+  - type: 3
+    time: 87.3
+  - type: 1
+    time: 87.6
+  - type: 3
+    time: 88.2
+  - type: 3
+    time: 88.5
+  - type: 4
+    time: 89.1
+  - type: 2
+    time: 89.4
+  - type: 1
+    time: 90
+  - type: 2
+    time: 90.2
+  - type: 1
+    time: 90.4
+  - type: 2
+    time: 91
+  - type: 1
+    time: 91.2
+  - type: 2
+    time: 91.4
+  - type: 4
+    time: 92
+  - type: 4
+    time: 92.2
+  - type: 4
+    time: 92.4
+  - type: 4
+    time: 92.6
+  - type: 4
+    time: 92.8
+  - type: 4
+    time: 93
+  - type: 1
+    time: 94.8
+  - type: 4
+    time: 95
+  - type: 1
+    time: 95.2
+  - type: 3
+    time: 95.8
+  - type: 1
+    time: 96
+  - type: 2
+    time: 96.2
+  - type: 4
+    time: 97.4
+  - type: 4
+    time: 97.6
+  - type: 4
+    time: 97.8
+  - type: 4
+    time: 98
+  - type: 4
+    time: 98.2
+  - type: 4
+    time: 98.4
+  - type: 3
+    time: 98.7
+  - type: 3
+    time: 99
+  - type: 1
+    time: 99.6
+  - type: 3
+    time: 99.8
+  - type: 2
+    time: 100
+  - type: 1
+    time: 100.6
+  - type: 4
+    time: 100.8
+  - type: 1
+    time: 101
+  - type: 3
+    time: 101.6
+  - type: 1
+    time: 101.8
+  - type: 1
+    time: 102
+  - type: 2
+    time: 102.6
+  - type: 1
+    time: 102.8
+  - type: 2
+    time: 103
+  - type: 2
+    time: 103.6
+  - type: 1
+    time: 103.8
+  - type: 3
+    time: 104
+  - type: 1
+    time: 104.6
+  - type: 3
+    time: 104.8
+  - type: 2
+    time: 105
+  - type: 1
+    time: 105.6
+  - type: 2
+    time: 105.8
+  - type: 3
+    time: 106
+  - type: 4
+    time: 107.8
+  - type: 4
+    time: 108
+  - type: 4
+    time: 108.2
+  - type: 4
+    time: 108.4
+  - type: 4
+    time: 108.6
+  - type: 4
+    time: 108.8
