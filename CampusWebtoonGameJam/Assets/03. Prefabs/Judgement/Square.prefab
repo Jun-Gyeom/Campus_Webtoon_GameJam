@@ -285,6 +285,9 @@ MonoBehaviour:
   judgementUI: {fileID: -7045956529371447967, guid: c39a7567a362b2d40ae4489d2439a0f0, type: 3}
   judgementLine: {fileID: 2210081587075931954}
   perfectTimingLine: {fileID: 7529460425758258377}
+  backgroundChangeScore: 2.5
+  backgroundImage: {fileID: 0}
+  backgroundSprite: []
 --- !u!1 &5583605413960628164
 GameObject:
   m_ObjectHideFlags: 0

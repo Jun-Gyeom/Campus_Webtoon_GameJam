@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class JudgementUI : MonoBehaviour
 {
-    [SerializeField] private Slider feverGauge;
+    [SerializeField] private Image feverGauge;
     [SerializeField] private GameObject[] HPObj;
     [SerializeField] private Image AccuracyStatusImg;
     [SerializeField] private Text ComboText; 
@@ -20,10 +20,11 @@ public class JudgementUI : MonoBehaviour
     }
     public void ControlFeverGauge(float value, bool IsFeverTime)
     {
+        Debug.Log(feverGauge);
         // 올라가는거 feverTime구분 해야ㅐㄷ ㅁ
         //feverGauge.value = value;
         if(IsFeverTime)
-            feverGauge.value = value;
+            feverGauge.fillAmount = value;
         else
         {
             if (currentFeverCo != null) StopCoroutine(currentFeverCo); 
@@ -32,10 +33,10 @@ public class JudgementUI : MonoBehaviour
     }
     IEnumerator SmoothControlGauge(float value)
     {
-        while(feverGauge.value < value)
+        while(feverGauge.fillAmount < value)
         {
             yield return new WaitForSecondsRealtime(0.01f);
-            feverGauge.value += 0.01f;
+            feverGauge.fillAmount += 0.01f;
         }
     }
     public void SetHPObj(int HP)
