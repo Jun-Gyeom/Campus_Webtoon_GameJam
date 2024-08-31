@@ -10,6 +10,7 @@ public class MainSceneHandler : MonoBehaviour
     private float _animationDuration = 0.5f; // 애니메이션 지속 시간
     private Vector3 _initialScale = new Vector3(0.1f, 0.1f, 0.1f);
     private bool _isAnimating = false; // 애니메이션 진행 여부 확인
+    private bool _isQuiting = false;    // 종료 중인지 여부 확인
     
     void Start()
     {
@@ -18,6 +19,9 @@ public class MainSceneHandler : MonoBehaviour
     }
     public void GameStart()
     {
+        // 버튼 효과음 재생
+        AudioManager.Instance.PlaySFX("Sounds_SFX_Button");
+        
         // 게임 씬으로 이동
         SceneController.Instance.ChangeScene(SceneName.Game);
         
@@ -30,6 +34,9 @@ public class MainSceneHandler : MonoBehaviour
         // 애니메이션이 진행 중이면 메서드를 종료
         if (_isAnimating)
             return;
+        
+        // 버튼 효과음 재생
+        AudioManager.Instance.PlaySFX("Sounds_SFX_Button");
 
         _isAnimating = true; // 애니메이션 시작 표시
 
@@ -46,6 +53,9 @@ public class MainSceneHandler : MonoBehaviour
         // 애니메이션이 진행 중이면 메서드를 종료
         if (_isAnimating)
             return;
+        
+        // 버튼 효과음 재생
+        AudioManager.Instance.PlaySFX("Sounds_SFX_Button");
 
         _isAnimating = true; // 애니메이션 시작 표시
 
@@ -58,14 +68,26 @@ public class MainSceneHandler : MonoBehaviour
 
     public void QuitGame()
     {
+        if (_isQuiting)
+        {
+            return;
+        }
+        
+        // 버튼 효과음 재생
+        AudioManager.Instance.PlaySFX("Sounds_SFX_Button");
+        
         StartCoroutine(HandleQuit());
     }
 
     private IEnumerator HandleQuit()
     {
+        _isQuiting = true;
+        
         // 페이드인
         SceneController.Instance.FadeIn();
         yield return new WaitForSeconds(SceneController.Instance.fadeInOutDuration);
+        
+        _isQuiting = false;
         
         // 게임 종료
         Application.Quit();

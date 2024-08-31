@@ -33,6 +33,7 @@ public class AudioManager : Singleton<AudioManager>
         {
             AudioSource source = gameObject.AddComponent<AudioSource>();
             source.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
+            source.dopplerLevel = 0;
             sfxSources.Add(source);
         }
     }

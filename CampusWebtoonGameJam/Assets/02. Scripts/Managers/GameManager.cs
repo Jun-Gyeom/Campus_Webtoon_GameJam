@@ -62,6 +62,15 @@ public class GameManager : Singleton<GameManager>
         SpawnEffect();
     }
 
+    // 게임 오버
+    public void GameOver()
+    {
+        // 효과음 재생 
+        AudioManager.Instance.PlaySFX("Sounds_SFX_GameOver");
+
+        Debug.Log("게임 오버");
+    }
+
     // 입력 이펙트 생성 
     private void SpawnEffect()
     {
