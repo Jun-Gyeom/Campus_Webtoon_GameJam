@@ -19,7 +19,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        print(IsGameOver);
+        //print(IsGameOver);
     }
 
     private void OnEnable()
