@@ -12,6 +12,9 @@ public class GameManager : Singleton<GameManager>
     
     public bool IsGameOver { get; set; }    // 게임오버 여부 
     public SceneName CurrentScene { get; set; } // 현재 씬 
+
+    [Header("Character")] public Animator characterAnimator;    // 캐릭터 애니메이터 (아빠, 냐미) 
+    public bool isDad = false;      // 아빠인지 여부 
     
     [Header("Input Effect")]
     public GameObject inputEffectPrefab;    // 입력 이펙트 프리팹을 할당할 변수
@@ -57,6 +60,8 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("위!");
         NoteJudgement.Instance.JudgementRequest(NoteType.Up);
         SpawnEffect();
+
+        DanceAnimationPlay(NoteType.Up);
     }
 
     // 아래쪽 노트 입력 
@@ -77,6 +82,8 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("아래!");
         NoteJudgement.Instance.JudgementRequest(NoteType.Down);
         SpawnEffect();
+        
+        DanceAnimationPlay(NoteType.Down);
     }
 
     // 왼쪽 노트 입력 
@@ -95,6 +102,8 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("왼쪽!");
         NoteJudgement.Instance.JudgementRequest(NoteType.Left);
         SpawnEffect();
+        
+        DanceAnimationPlay(NoteType.Left);
     }
 
     // 오른쪽 노트 입력 
@@ -113,6 +122,72 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("오른쪽!");
         NoteJudgement.Instance.JudgementRequest(NoteType.Right);
         SpawnEffect();
+        
+        DanceAnimationPlay(NoteType.Right);
+    }
+
+    private void DanceAnimationPlay(NoteType type)
+    {
+        if (characterAnimator == null)
+        {
+            characterAnimator = GameObject.Find("CH").GetComponent<Animator>();
+        }
+        
+        if (isDad)
+        {
+            switch (type)
+            {
+                case NoteType.Up:
+                    characterAnimator.Play("Dad_Up");
+                    return; 
+                case NoteType.Down:
+                    characterAnimator.Play("Dad_Down");
+                    return; 
+                case NoteType.Left:
+                    characterAnimator.Play("Dad_Left");
+                    return; 
+                case NoteType.Right:
+                    characterAnimator.Play("Dad_Right");
+                    return; 
+            }
+        }
+        else
+        {
+            switch (type)
+            {
+                case NoteType.Up:
+                    characterAnimator.Play("NM_Up");
+                    return; 
+                case NoteType.Down:
+                    characterAnimator.Play("NM_Down");
+                    return; 
+                case NoteType.Left:
+                    characterAnimator.Play("NM_Left");
+                    return; 
+                case NoteType.Right:
+                    characterAnimator.Play("NM_Right");
+                    return; 
+            }
+        }
+        
+        Invoke("IdleAnimationPlay", 1f);
+    }
+
+    private void IdleAnimationPlay()
+    {
+        if (characterAnimator == null)
+        {
+            characterAnimator = GameObject.Find("CH").GetComponent<Animator>();
+        }
+        
+        if (isDad)
+        {
+            characterAnimator.Play("Dad_Idle");
+        }
+        else
+        {
+            characterAnimator.Play("NM_Idle");
+        }
     }
     
     // 게임 클리어
