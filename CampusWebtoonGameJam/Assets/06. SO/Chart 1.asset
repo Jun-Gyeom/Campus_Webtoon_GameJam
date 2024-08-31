@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chart 1
   m_EditorClassIdentifier: 
   chartID: 0
-  music: Test
+  music: Sounds_BGM_InGame
   noteTravelTime: 3
   notes:
   - type: 1
@@ -31,4 +31,4 @@ MonoBehaviour:
   - type: 1
     time: 6.5
   - type: 2
-    time: 6.75
+    time: 10

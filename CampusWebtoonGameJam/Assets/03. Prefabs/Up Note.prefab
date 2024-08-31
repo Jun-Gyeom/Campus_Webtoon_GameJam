@@ -171,5 +171,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed85cccbeb41688439c845997c007f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteSpeed: 5
+  noteSpeed: 0
   type: 1
