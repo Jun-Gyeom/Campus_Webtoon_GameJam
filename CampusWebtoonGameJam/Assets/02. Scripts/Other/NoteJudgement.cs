@@ -17,10 +17,7 @@ public class NoteJudgement : Singleton<NoteJudgement>
 
     bool noteInputData = false; // 현재 노드에 대한 입력 값이 있었는지
 
-    // 얘네는 게임 매니저에 있어야 겟지?
     int comboCount = 0;
-    int HP = 5;
-    float score = 0;
     float scoreMultiple = 1;
     bool IsFeverTime = false;
     float feverAmount = 0;
@@ -106,22 +103,19 @@ public class NoteJudgement : Singleton<NoteJudgement>
         {
             case AccuracyStatus.perfect:
 
-                score += 500 * scoreMultiple;
-                judgementUI.SetScoreoText((int)score);
+                GameManager.Instance.Score += 500 * scoreMultiple;
                 SetComboCount(1);
-                if (HP < 5) HP++;
-                if (Mathf.Abs(backgroundChangeScore - HP) < 1) SetBackGround();
+                if (GameManager.Instance.Health < 5)
+                    GameManager.Instance.Health++;
 
                 judgementUI.SetAccuracyStatusUI(AccuracyStatus.perfect);
-                judgementUI.SetHPObj(HP);
                 AudioManager.Instance.PlaySFX("Sounds_SFX_Note");
                 feverAmount += maxFeverAmount / 10f;
-                if (!IsFeverTime) judgementUI.ControlFeverGauge(feverAmount / maxFeverAmount,false);
+                if (!IsFeverTime) judgementUI.ControlFeverGauge(feverAmount / maxFeverAmount, false);
                 break;
             case AccuracyStatus.good:
 
-                score += 100 * scoreMultiple;
-                judgementUI.SetScoreoText((int)score);
+                GameManager.Instance.Score += 100 * scoreMultiple;
                 SetComboCount(1);
 
                 judgementUI.SetAccuracyStatusUI(AccuracyStatus.good);
@@ -132,18 +126,20 @@ public class NoteJudgement : Singleton<NoteJudgement>
             case AccuracyStatus.bad:
 
                 SetComboCount(-comboCount);
-                if (--HP == 0)
+                if (--GameManager.Instance.Health == 0)
                 {
                     GameManager.Instance.GameOver();
                 }
-                if (Mathf.Abs(backgroundChangeScore - HP) < 1) SetBackGround();
 
                 judgementUI.SetAccuracyStatusUI(AccuracyStatus.bad);
-                judgementUI.SetHPObj(HP);
                 break;
             default:
                 break;
         }
+        judgementUI.SetHPObj(GameManager.Instance.Health);
+        if (Mathf.Abs(backgroundChangeScore - GameManager.Instance.Health) < 1)
+            SetBackGround();
+
         if (feverAmount >= maxFeverAmount && !IsFeverTime)
         {
             Debug.Log("fever time");
@@ -179,17 +175,18 @@ public class NoteJudgement : Singleton<NoteJudgement>
 
 
     // 잠시 여기 둿습니다ㅣ.... 옮길 예정
-    float backgroundChangeScore = 2.5f;
+    [Header("background")]
+    public float backgroundChangeScore = 2.5f;
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Sprite[] backgroundSprite;
-    void SetBackGround()
+
+    public void SetBackGround()
     {
         StartCoroutine(SmoothChangeBackGround());
     }
-    IEnumerator SmoothChangeBackGround()
+    private IEnumerator SmoothChangeBackGround()
     {
-        Debug.Log(HP);
-        if (HP < backgroundChangeScore) // 아빠
+        if (GameManager.Instance.Health < backgroundChangeScore) // 아빠
         {
             if (backgroundImage.sprite == backgroundSprite[1]) yield break;
             Debug.Log("아빠로");

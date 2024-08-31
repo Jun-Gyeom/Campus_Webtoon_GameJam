@@ -18,6 +18,9 @@ public class GameManager : Singleton<GameManager>
 
     private void OnEnable()
     {
+        MaxHealth = 5;
+        Health = MaxHealth;
+
         InputManager.OnUp += OnUpNoteInput;
         InputManager.OnDown += OnDownNoteInput;
         InputManager.OnLeft += OnLeftNoteInput;

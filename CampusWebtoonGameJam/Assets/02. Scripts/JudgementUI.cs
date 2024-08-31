@@ -8,8 +8,7 @@ public class JudgementUI : MonoBehaviour
     [SerializeField] private Slider feverGauge;
     [SerializeField] private GameObject[] HPObj;
     [SerializeField] private Image AccuracyStatusImg;
-    [SerializeField] private Text ComboText;
-    [SerializeField] private Text ScoreText;
+    [SerializeField] private Text ComboText; 
 
     [SerializeField] private Sprite [] AccuracyStatusSpr;
 
@@ -70,11 +69,7 @@ public class JudgementUI : MonoBehaviour
     public void SetComboText(int count)
     {
         ComboText.text = count.ToString();
-    }
-    public void SetScoreoText(int count)
-    {
-        ScoreText.text = count.ToString();
-    }
+    } 
     public void SetAccuracyStatusUI(AccuracyStatus status)
     {
         if (currentAccuracyCo != null) StopCoroutine(currentAccuracyCo); 
@@ -86,7 +81,7 @@ public class JudgementUI : MonoBehaviour
         co.a = 0;
         AccuracyStatusImg.color = co;
 
-        Color ComboCo = AccuracyStatusImg.color;
+        Color ComboCo = ComboText.color;
         ComboCo.a = 0;
         ComboText.color = ComboCo;
          
