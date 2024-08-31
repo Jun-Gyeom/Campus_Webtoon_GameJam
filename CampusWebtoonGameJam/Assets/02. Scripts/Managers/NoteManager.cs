@@ -34,6 +34,9 @@ public class NoteManager : Singleton<NoteManager>
             Debug.LogError($"해당 ID의 채보가 존재하지 않습니다. : {chartID}");
             return;
         }
+        
+        // 게임오버 여부 초기화
+        GameManager.Instance.IsGameOver = false;
 
         // 음악 재생
         AudioManager.Instance.PlayBGM(chart.music);

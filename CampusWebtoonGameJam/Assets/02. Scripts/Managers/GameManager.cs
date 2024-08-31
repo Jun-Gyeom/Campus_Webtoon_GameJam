@@ -10,6 +10,8 @@ public class GameManager : Singleton<GameManager>
     public int Health { get; set; }         // 현재 HP
     public int MaxHealth { get; set; }      // 최대 HP
     
+    public bool IsGameOver { get; set; }    // 게임오버 여부 
+    
     [Header("Input Effect")]
     public GameObject inputEffectPrefab;    // 입력 이펙트 프리팹을 할당할 변수
     public Transform spawnPoint;            // 이펙트가 생성될 위치
@@ -65,10 +67,24 @@ public class GameManager : Singleton<GameManager>
     // 게임 오버
     public void GameOver()
     {
+        // 이미 게임오버라면 메서드를 종료 
+        if (IsGameOver)
+        {
+            return;
+        }
+        
+        // 게임오버 처리
+        Debug.Log("게임 오버");
+        IsGameOver = true;
+        
+        // 음악 끄기
+        AudioManager.Instance.StopBGM();
+        
         // 효과음 재생 
         AudioManager.Instance.PlaySFX("Sounds_SFX_GameOver");
 
-        Debug.Log("게임 오버");
+        // 게임오버 패널 띄우기 
+        SceneController.Instance.ShowGameOverPanel();
     }
 
     // 입력 이펙트 생성 
