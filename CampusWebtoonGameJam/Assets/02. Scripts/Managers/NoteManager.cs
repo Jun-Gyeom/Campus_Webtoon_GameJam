@@ -69,6 +69,19 @@ public class NoteManager : Singleton<NoteManager>
             // 노트 생성
             SpawnNote(note.type);
         }
+        
+        // 마지막 노트가 판정선에 도달할 때까지 대기 
+        if (!GameManager.Instance.IsGameOver)
+        {
+            yield return new WaitForSeconds(_noteTravelTime + 1f);
+        }
+        
+        // 모든 노트가 등장하였으므로 게임 클리어 처리
+        if (!GameManager.Instance.IsGameOver &&
+            GameManager.Instance.CurrentScene == SceneName.Game)
+        {
+            GameManager.Instance.GameClear();
+        }
     }
 
     private void SpawnNote(NoteType type)

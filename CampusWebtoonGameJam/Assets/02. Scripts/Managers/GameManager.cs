@@ -11,10 +11,16 @@ public class GameManager : Singleton<GameManager>
     public int MaxHealth { get; set; }      // 최대 HP
     
     public bool IsGameOver { get; set; }    // 게임오버 여부 
+    public SceneName CurrentScene { get; set; } // 현재 씬 
     
     [Header("Input Effect")]
     public GameObject inputEffectPrefab;    // 입력 이펙트 프리팹을 할당할 변수
     public Transform spawnPoint;            // 이펙트가 생성될 위치
+
+    private void Update()
+    {
+        print(IsGameOver);
+    }
 
     private void OnEnable()
     {
@@ -35,6 +41,16 @@ public class GameManager : Singleton<GameManager>
     // 위쪽 노트 입력 
     public void OnUpNoteInput()
     {
+        if (CurrentScene != SceneName.Game)
+        {
+            return;
+        }
+
+        if (IsGameOver)
+        {
+            return;
+        }
+        
         Debug.Log("위!");
         NoteJudgement.Instance.JudgementRequest(NoteType.Up);
         SpawnEffect();
@@ -43,6 +59,18 @@ public class GameManager : Singleton<GameManager>
     // 아래쪽 노트 입력 
     public void OnDownNoteInput()
     {
+        if (CurrentScene != SceneName.Game)
+        {
+            return;
+        }
+
+        if (IsGameOver)
+        {
+            return;
+        }
+
+
+        
         Debug.Log("아래!");
         NoteJudgement.Instance.JudgementRequest(NoteType.Down);
         SpawnEffect();
@@ -51,6 +79,16 @@ public class GameManager : Singleton<GameManager>
     // 왼쪽 노트 입력 
     public void OnLeftNoteInput()
     {
+        if (CurrentScene != SceneName.Game)
+        {
+            return;
+        }
+
+        if (IsGameOver)
+        {
+            return;
+        }
+        
         Debug.Log("왼쪽!");
         NoteJudgement.Instance.JudgementRequest(NoteType.Left);
         SpawnEffect();
@@ -59,9 +97,34 @@ public class GameManager : Singleton<GameManager>
     // 오른쪽 노트 입력 
     public void OnRightNoteInput()
     {
+        if (CurrentScene != SceneName.Game)
+        {
+            return;
+        }
+
+        if (IsGameOver)
+        {
+            return;
+        }
+        
         Debug.Log("오른쪽!");
         NoteJudgement.Instance.JudgementRequest(NoteType.Right);
         SpawnEffect();
+    }
+    
+    // 게임 클리어
+    public void GameClear()
+    {
+        // 음악 끄기
+        AudioManager.Instance.StopBGM();
+        
+        // 스코어 표시
+        
+        // 효과음 재생
+        AudioManager.Instance.PlaySFX("Sounds_SFX_Clear");
+        
+        // 게임 클리어 패널 띄우기
+        SceneController.Instance.ShowClearPanel();
     }
 
     // 게임 오버

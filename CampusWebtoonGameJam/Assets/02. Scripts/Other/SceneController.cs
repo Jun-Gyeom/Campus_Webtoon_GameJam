@@ -32,6 +32,7 @@ public class SceneController : Singleton<SceneController>
     private float _animationDuration = 0.5f; // 애니메이션 지속 시간
     private Vector3 _initialScale = new Vector3(0.1f, 0.1f, 0.1f);
     private bool _isAnimating = false; // 애니메이션 진행 여부 확인
+    private bool _isClearPanelAnimating;    // 클리어 패널 애니메이션 진행 여부 
     private bool _isQuiting = false;    // 종료 중인지 여부 확인
     
     private void Start()
@@ -61,6 +62,9 @@ public class SceneController : Singleton<SceneController>
 
         // 씬 비동기 로딩 
         yield return StartCoroutine(LoadSceneAsync(sceneName));
+        
+        // 현재 씬 변경 입력
+        GameManager.Instance.CurrentScene = sceneName;
         
         // 대기
         yield return _waitForFading;
@@ -113,34 +117,34 @@ public class SceneController : Singleton<SceneController>
     public void ShowClearPanel()
     {
         // 애니메이션이 진행 중이면 메서드를 종료
-        if (_isAnimating)
+        if (_isClearPanelAnimating)
             return;
         
-        _isAnimating = true; // 애니메이션 시작 표시
+        _isClearPanelAnimating = true; // 애니메이션 시작 표시
 
         clearPanelGameObject.SetActive(true);
         clearPanelGameObject.transform.localScale = _initialScale; // 크기를 작은 상태로 초기화
         clearPanelGameObject.transform.DOScale(Vector3.one, _animationDuration).SetEase(Ease.OutBack).OnComplete(() =>
         {
-            _isAnimating = false; // 애니메이션 종료 표시
+            _isClearPanelAnimating = false; // 애니메이션 종료 표시
         });
     }
 
     public void HideClearPanel()
     {
         // 애니메이션이 진행 중이면 메서드를 종료
-        if (_isAnimating)
+        if (_isClearPanelAnimating)
             return;
         
         // 버튼 효과음 재생
         AudioManager.Instance.PlaySFX("Sounds_SFX_Button");
 
-        _isAnimating = true; // 애니메이션 시작 표시
+        _isClearPanelAnimating = true; // 애니메이션 시작 표시
 
         clearPanelGameObject.transform.DOScale(_initialScale, _animationDuration).SetEase(Ease.InBack).OnComplete(() =>
         {
             clearPanelGameObject.SetActive(false);
-            _isAnimating = false; // 애니메이션 종료 표시
+            _isClearPanelAnimating = false; // 애니메이션 종료 표시
         });
     }
 
