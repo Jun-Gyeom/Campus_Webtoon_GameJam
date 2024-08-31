@@ -1,4 +1,5 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
 
 [CustomEditor(typeof(ChartData))]
@@ -67,3 +68,4 @@ public class ChartDataEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 }
+#endif

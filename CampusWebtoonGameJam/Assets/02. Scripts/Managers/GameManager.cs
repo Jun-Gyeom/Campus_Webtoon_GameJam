@@ -9,6 +9,10 @@ public class GameManager : Singleton<GameManager>
     public float HighScore { get; set; }    // 최고 점수
     public int Health { get; set; }         // 현재 HP
     public int MaxHealth { get; set; }      // 최대 HP
+    
+    [Header("Input Effect")]
+    public GameObject inputEffectPrefab;    // 입력 이펙트 프리팹을 할당할 변수
+    public Transform spawnPoint;            // 이펙트가 생성될 위치
 
     private void OnEnable()
     {
@@ -31,6 +35,7 @@ public class GameManager : Singleton<GameManager>
     {
         Debug.Log("위!");
         NoteJudgement.Instance.JudgementRequest(NoteType.Up);
+        SpawnEffect();
     }
 
     // 아래쪽 노트 입력 
@@ -38,6 +43,7 @@ public class GameManager : Singleton<GameManager>
     {
         Debug.Log("아래!");
         NoteJudgement.Instance.JudgementRequest(NoteType.Down);
+        SpawnEffect();
     }
 
     // 왼쪽 노트 입력 
@@ -45,6 +51,7 @@ public class GameManager : Singleton<GameManager>
     {
         Debug.Log("왼쪽!");
         NoteJudgement.Instance.JudgementRequest(NoteType.Left);
+        SpawnEffect();
     }
 
     // 오른쪽 노트 입력 
@@ -52,5 +59,18 @@ public class GameManager : Singleton<GameManager>
     {
         Debug.Log("오른쪽!");
         NoteJudgement.Instance.JudgementRequest(NoteType.Right);
+        SpawnEffect();
+    }
+
+    // 입력 이펙트 생성 
+    private void SpawnEffect()
+    {
+        // 이펙트 프리팹을 현재 위치에 생성
+        GameObject newEffect = Instantiate(inputEffectPrefab, spawnPoint.position, Quaternion.identity);
+
+        // 애니메이션 길이만큼 대기 후 이펙트 객체 삭제
+        Animator animator = newEffect.GetComponent<Animator>();
+        float animationLength = animator.GetCurrentAnimatorStateInfo(0).length;
+        Destroy(newEffect, animationLength);
     }
 }

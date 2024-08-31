@@ -22,7 +22,7 @@ public class MainSceneHandler : MonoBehaviour
         SceneController.Instance.ChangeScene(SceneName.Game);
         
         // 이벤트에 채보 시작 등록
-        SceneController.Instance.OnFadeComplate += () => NoteManager.Instance.StartChart(0);    // 현재 개발 목표는 한 곡이므로 정적인 식별자 사용
+        SceneController.Instance.OnFadeComplate += () => NoteManager.Instance.StartChart(0); // 현재 개발 목표는 한 곡이므로 정적인 식별자 사용
     }
 
     public void ShowHowPanel()

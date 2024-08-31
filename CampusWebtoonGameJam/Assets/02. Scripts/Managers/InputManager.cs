@@ -27,6 +27,8 @@ public class InputManager : Singleton<InputManager>
         InputAsset.GamePlay.Down.performed += ctx => Down();
         InputAsset.GamePlay.Left.performed += ctx => Left();
         InputAsset.GamePlay.Right.performed += ctx => Right();
+        
+        /*
         switch(Input.inputString)
         {
             case "w":
@@ -42,6 +44,8 @@ public class InputManager : Singleton<InputManager>
                 Right();
                 break;
         }
+        
+        */
     }
 
     private void OnEnable()
