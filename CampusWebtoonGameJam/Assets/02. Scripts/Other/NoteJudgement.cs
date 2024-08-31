@@ -111,6 +111,7 @@ public class NoteJudgement : Singleton<NoteJudgement>
 
                 judgementUI.SetAccuracyStatusUI(AccuracyStatus.perfect);
                 judgementUI.SetHPObj(HP);
+                AudioManager.Instance.PlaySFX("Sounds_SFX_Note");
                 feverAmount += maxFeverAmount / 10f;
                 if (!IsFeverTime) judgementUI.ControlFeverGauge(feverAmount / maxFeverAmount,false);
                 break;
@@ -121,7 +122,8 @@ public class NoteJudgement : Singleton<NoteJudgement>
 
                 judgementUI.SetAccuracyStatusUI(AccuracyStatus.good);
                 feverAmount += maxFeverAmount / 20f;
-                if(!IsFeverTime) judgementUI.ControlFeverGauge(feverAmount / maxFeverAmount, false);
+                AudioManager.Instance.PlaySFX("Sounds_SFX_Note");
+                if (!IsFeverTime) judgementUI.ControlFeverGauge(feverAmount / maxFeverAmount, false);
                 break;
             case AccuracyStatus.bad:
 
