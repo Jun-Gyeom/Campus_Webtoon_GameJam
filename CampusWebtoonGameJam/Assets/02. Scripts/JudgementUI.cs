@@ -14,6 +14,10 @@ public class JudgementUI : MonoBehaviour
 
     Coroutine currentAccuracyCo;
     Coroutine currentFeverCo;
+    private void OnEnable()
+    {
+        currentAccuracyCo = null;
+    }
     public void ControlFeverGauge(float value, bool IsFeverTime)
     {
         // 올라가는거 feverTime구분 해야ㅐㄷ ㅁ
