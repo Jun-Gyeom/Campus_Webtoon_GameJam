@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class NoteJudgement : Singleton<NoteJudgement>
 {
     [SerializeField] private JudgementUI judgementUI;
 
-    Transform note;
+    Queue<Transform> note;
     [SerializeField] private Transform judgementLine; // 판정 위치 
     [SerializeField] private Transform perfectTimingLine; // 판정 위치 
 
@@ -26,7 +27,7 @@ public class NoteJudgement : Singleton<NoteJudgement>
 
     private void Awake()
     {
-
+        note = new Queue<Transform>();
         perfectScope = perfectTimingLine.GetComponent<BoxCollider2D>().size.x / 2;
         goodScope = judgementLine.GetComponent<BoxCollider2D>().size.x / 2;
         Debug.Log(perfectScope);
@@ -45,7 +46,7 @@ public class NoteJudgement : Singleton<NoteJudgement>
     // combo
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        note = collision.transform;
+        note.Enqueue(collision.transform);
         noteInputData = false;
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -54,7 +55,8 @@ public class NoteJudgement : Singleton<NoteJudgement>
         {
             AccuracyProcessing(AccuracyStatus.bad);
         }
-        note = null;
+
+        note.Dequeue();
         noteInputData = false;
     }
     /// <summary>
@@ -62,20 +64,19 @@ public class NoteJudgement : Singleton<NoteJudgement>
     /// </summary>
     public void JudgementRequest(NoteType noteType)
     {
-        if (note != null)
+        if (note.Count>0)
         {
             noteInputData = true;
-            if (noteType == note.GetComponent<Note>().type)
+            if (noteType == note.Peek().GetComponent<Note>().type)
             {
-                AccuracyProcessing(AccuracyCalculation());
-                Destroy(note.gameObject);
+                AccuracyProcessing(AccuracyCalculation()); 
+                Destroy(note.Peek().gameObject);
 
             }
             else
             {
-
-                AccuracyProcessing(AccuracyStatus.bad);
-                Destroy(note.gameObject);
+                AccuracyProcessing(AccuracyStatus.bad); 
+                Destroy(note.Peek().gameObject);
             }
         }
     }
@@ -85,7 +86,7 @@ public class NoteJudgement : Singleton<NoteJudgement>
     /// <returns></returns>
     AccuracyStatus AccuracyCalculation()
     {
-        float distance = Mathf.Abs(note.position.x - judgementLine.position.x);
+        float distance = Mathf.Abs(note.Peek().position.x - judgementLine.position.x);
 
         AccuracyStatus value =
             distance <= perfectScope ? AccuracyStatus.perfect :
@@ -108,19 +109,19 @@ public class NoteJudgement : Singleton<NoteJudgement>
                 SetComboCount(1);
                 if (HP < 5) HP++;
 
-                judgementUI.SetAccuracyStatusText(AccuracyStatus.perfect);
+                judgementUI.SetAccuracyStatusUI(AccuracyStatus.perfect);
                 judgementUI.SetHPObj(HP);
                 feverAmount += maxFeverAmount / 10f;
-                if (!IsFeverTime) judgementUI.ControlFeverGauge(feverAmount / maxFeverAmount);
+                if (!IsFeverTime) judgementUI.ControlFeverGauge(feverAmount / maxFeverAmount,false);
                 break;
             case AccuracyStatus.good:
 
                 score += 100 * scoreMultiple;
                 SetComboCount(1);
 
-                judgementUI.SetAccuracyStatusText(AccuracyStatus.good);
+                judgementUI.SetAccuracyStatusUI(AccuracyStatus.good);
                 feverAmount += maxFeverAmount / 20f;
-                if(!IsFeverTime) judgementUI.ControlFeverGauge(feverAmount / maxFeverAmount);
+                if(!IsFeverTime) judgementUI.ControlFeverGauge(feverAmount / maxFeverAmount, false);
                 break;
             case AccuracyStatus.bad:
 
@@ -128,7 +129,7 @@ public class NoteJudgement : Singleton<NoteJudgement>
                 if (--HP == 0)
                 { Debug.Log("GAME OVER"); }
 
-                judgementUI.SetAccuracyStatusText(AccuracyStatus.bad);
+                judgementUI.SetAccuracyStatusUI(AccuracyStatus.bad);
                 judgementUI.SetHPObj(HP);
                 break;
             default:
@@ -158,7 +159,7 @@ public class NoteJudgement : Singleton<NoteJudgement>
         {
             yield return new WaitForSecondsRealtime(0.02f);
             feverTime -= 0.02f;
-            judgementUI.ControlFeverGauge(feverTime / maxFeverTime);
+            judgementUI.ControlFeverGauge(feverTime / maxFeverTime, true);
         }
 
         feverAmount = 0;

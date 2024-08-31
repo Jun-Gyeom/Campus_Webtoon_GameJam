@@ -7,14 +7,33 @@ public class JudgementUI : MonoBehaviour
 {
     [SerializeField] private Slider feverGauge;
     [SerializeField] private GameObject[] HPObj;
-    [SerializeField] private Text AccuracyStatusText;
+    [SerializeField] private Image AccuracyStatusImg;
     [SerializeField] private Text ComboText;
 
-    public void ControlFeverGauge(float value)
-    {
-        feverGauge.value = value;
-    }
+    [SerializeField] private Sprite [] AccuracyStatusSpr;
 
+    Coroutine currentAccuracyCo;
+    Coroutine currentFeverCo;
+    public void ControlFeverGauge(float value, bool IsFeverTime)
+    {
+        // 올라가는거 feverTime구분 해야ㅐㄷ ㅁ
+        //feverGauge.value = value;
+        if(IsFeverTime)
+            feverGauge.value = value;
+        else
+        {
+            if (currentFeverCo != null) StopCoroutine(currentFeverCo); 
+            currentFeverCo= StartCoroutine(SmoothControlGauge(value)); 
+        }
+    }
+    IEnumerator SmoothControlGauge(float value)
+    {
+        while(feverGauge.value < value)
+        {
+            yield return new WaitForSecondsRealtime(0.01f);
+            feverGauge.value += 0.01f;
+        }
+    }
     public void SetHPObj(int HP)
     {
         switch (HP)
@@ -51,22 +70,44 @@ public class JudgementUI : MonoBehaviour
     {
         ComboText.text = count.ToString();
     }
-    public void SetAccuracyStatusText(AccuracyStatus status)
+    public void SetAccuracyStatusUI(AccuracyStatus status)
     {
+        if (currentAccuracyCo != null) StopCoroutine(currentAccuracyCo); 
+        currentAccuracyCo = StartCoroutine(ChangeAccuracyStatusUI(status));
+    }
+    IEnumerator ChangeAccuracyStatusUI(AccuracyStatus status)
+    {
+        Color co = AccuracyStatusImg.color;
+        co.a = 0;
+        AccuracyStatusImg.color = co;
+
         switch (status)
         {
             case AccuracyStatus.perfect:
-                AccuracyStatusText.text = "perfect";
+                AccuracyStatusImg.sprite = AccuracyStatusSpr[(int)AccuracyStatus.perfect];
                 break;
             case AccuracyStatus.good:
-                AccuracyStatusText.text = "good";
+                AccuracyStatusImg.sprite = AccuracyStatusSpr[(int)AccuracyStatus.good];
                 break;
             case AccuracyStatus.bad:
-                AccuracyStatusText.text = "bad";
+                AccuracyStatusImg.sprite = AccuracyStatusSpr[(int)AccuracyStatus.bad];
                 break;
             default:
                 break;
         }
 
+        while (AccuracyStatusImg.color.a<=1)
+        {
+            yield return new WaitForSecondsRealtime(0.01f);
+            co.a+=0.1f;
+            AccuracyStatusImg.color = co;
+        }
+        yield return new WaitForSecondsRealtime(0.5f);
+        while (AccuracyStatusImg.color.a >= 0)
+        {
+            yield return new WaitForSecondsRealtime(0.02f);
+            co.a -= 0.1f;
+            AccuracyStatusImg.color = co;
+        }
     }
 }
