@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : Singleton<InputManager>
+public class InputManager : MonoBehaviour
 {
     public static GameControls InputAsset;
     
@@ -15,12 +16,11 @@ public class InputManager : Singleton<InputManager>
     public static event KeyAction OnLeft;   // 왼쪽 노트 입력
     public static event KeyAction OnRight;  // 오른쪽 노트 입력 
 
-    private new void Awake()
+    private void Awake()
     {
-        base.Awake();
-
         InputAsset = new GameControls();
     }
+
     private void Update()
     {
         InputAsset.GamePlay.Up.performed += ctx => Up();
@@ -60,6 +60,7 @@ public class InputManager : Singleton<InputManager>
 
     private void Up()
     {
+        Debug.Log("Up");
         OnUp?.Invoke();
     }
     

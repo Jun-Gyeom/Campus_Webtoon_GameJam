@@ -23,8 +23,10 @@ public class NoteJudgement : Singleton<NoteJudgement>
     float feverAmount = 0;
     float maxFeverAmount = 100;
 
-    private void Awake()
+    private new void Awake()
     {
+        base.Awake();
+        
         note = new Queue<Transform>();
         perfectScope = perfectTimingLine.GetComponent<BoxCollider2D>().size.x / 2;
         goodScope = judgementLine.GetComponent<BoxCollider2D>().size.x / 2;
