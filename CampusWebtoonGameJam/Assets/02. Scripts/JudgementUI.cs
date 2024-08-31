@@ -21,15 +21,16 @@ public class JudgementUI : MonoBehaviour
     }
     public void ControlFeverGauge(float value, bool IsFeverTime)
     {
-        Debug.Log(feverGauge);
         // 올라가는거 feverTime구분 해야ㅐㄷ ㅁ
         //feverGauge.value = value;
         if(IsFeverTime)
             feverGauge.fillAmount = value;
         else
         {
-            if (currentFeverCo != null) StopCoroutine(currentFeverCo); 
-            currentFeverCo= StartCoroutine(SmoothControlGauge(value)); 
+            if (this.gameObject.activeInHierarchy)
+            { 
+                if (currentFeverCo != null) StopCoroutine(currentFeverCo); 
+            currentFeverCo= StartCoroutine(SmoothControlGauge(value)); }
         }
     }
     IEnumerator SmoothControlGauge(float value)
@@ -45,6 +46,10 @@ public class JudgementUI : MonoBehaviour
         switch (HP)
         {
             case 5:
+                HPObj[0].SetActive(true);
+                HPObj[1].SetActive(true);
+                HPObj[2].SetActive(true);
+                HPObj[3].SetActive(true);
                 HPObj[4].SetActive(true);
                 break;
             case 4:

@@ -201,6 +201,7 @@ public class SceneController : Singleton<SceneController>
         // 게임 클리어 패널 숨기기
         HideClearPanel();
         
+        NoteJudgement.Instance.Init();
         // 게임 재시작
         ChangeScene(SceneName.Game);
         OnFadeComplate += () => NoteManager.Instance.StartChart(0);

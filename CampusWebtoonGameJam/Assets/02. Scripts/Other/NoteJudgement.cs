@@ -31,6 +31,18 @@ public class NoteJudgement : Singleton<NoteJudgement>
         perfectScope = perfectTimingLine.GetComponent<BoxCollider2D>().size.x / 2;
         goodScope = judgementLine.GetComponent<BoxCollider2D>().size.x / 2;
         Debug.Log(perfectScope);
+        Init();
+    }
+    public  void Init()
+    {
+        Debug.Log("init");
+        feverAmount = 0;
+        comboCount = 0;
+        scoreMultiple = 1;
+        IsFeverTime = false;
+        judgementUI.ControlFeverGauge(feverAmount / maxFeverAmount, false);
+        judgementUI.SetHPObj(GameManager.Instance.Health);
+        
     }
     // 1. 현재 판정선에 노트가 있는지. (ontriggerEnter로 넣고, 입력 확인 변수 초기화  0
     // 2-1. 있다면 입력이 들어왔는지.                                               0
@@ -184,7 +196,11 @@ public class NoteJudgement : Singleton<NoteJudgement>
 
     public void SetBackGround()
     {
+
+        if (this.gameObject.activeInHierarchy)
+        {
         StartCoroutine(SmoothChangeBackGround());
+        }
     }
     private IEnumerator SmoothChangeBackGround()
     {
