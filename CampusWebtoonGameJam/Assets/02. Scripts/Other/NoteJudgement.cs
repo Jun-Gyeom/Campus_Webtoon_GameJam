@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NoteJudgement : Singleton<NoteJudgement>
 {
@@ -106,8 +107,10 @@ public class NoteJudgement : Singleton<NoteJudgement>
             case AccuracyStatus.perfect:
 
                 score += 500 * scoreMultiple;
+                judgementUI.SetScoreoText((int)score);
                 SetComboCount(1);
                 if (HP < 5) HP++;
+                if (Mathf.Abs(backgroundChangeScore - HP) < 1) SetBackGround();
 
                 judgementUI.SetAccuracyStatusUI(AccuracyStatus.perfect);
                 judgementUI.SetHPObj(HP);
@@ -118,6 +121,7 @@ public class NoteJudgement : Singleton<NoteJudgement>
             case AccuracyStatus.good:
 
                 score += 100 * scoreMultiple;
+                judgementUI.SetScoreoText((int)score);
                 SetComboCount(1);
 
                 judgementUI.SetAccuracyStatusUI(AccuracyStatus.good);
@@ -129,7 +133,10 @@ public class NoteJudgement : Singleton<NoteJudgement>
 
                 SetComboCount(-comboCount);
                 if (--HP == 0)
-                { Debug.Log("GAME OVER"); }
+                {
+                    GameManager.Instance.GameOver();
+                }
+                if (Mathf.Abs(backgroundChangeScore - HP) < 1) SetBackGround();
 
                 judgementUI.SetAccuracyStatusUI(AccuracyStatus.bad);
                 judgementUI.SetHPObj(HP);
@@ -168,6 +175,60 @@ public class NoteJudgement : Singleton<NoteJudgement>
         scoreMultiple = 1f;
         IsFeverTime = false;
 
+    }
+
+
+    // 잠시 여기 둿습니다ㅣ.... 옮길 예정
+    float backgroundChangeScore = 2.5f;
+    [SerializeField] private Image backgroundImage;
+    [SerializeField] private Sprite[] backgroundSprite;
+    void SetBackGround()
+    {
+        StartCoroutine(SmoothChangeBackGround());
+    }
+    IEnumerator SmoothChangeBackGround()
+    {
+        Debug.Log(HP);
+        if (HP < backgroundChangeScore) // 아빠
+        {
+            if (backgroundImage.sprite == backgroundSprite[1]) yield break;
+            Debug.Log("아빠로");
+            Color co = backgroundImage.color;
+            while (co.a > 0)
+            {
+                co.a -= 0.02f;
+                backgroundImage.color = co;
+                yield return new WaitForSecondsRealtime(0.02f);
+            }
+            backgroundImage.sprite = backgroundSprite[1];
+
+            while (co.a <1)
+            {
+                co.a += 0.05f;
+                backgroundImage.color = co;
+                yield return new WaitForSecondsRealtime(0.01f);
+            }
+        }
+        else // 냐미
+        {
+            if (backgroundImage.sprite == backgroundSprite[0]) yield break;
+            Debug.Log("냐미로");
+            Color co = backgroundImage.color;
+            while (co.a > 0)
+            {
+                co.a -= 0.02f;
+                backgroundImage.color = co;
+                yield return new WaitForSecondsRealtime(0.02f);
+            }
+            backgroundImage.sprite = backgroundSprite[0];
+
+            while (co.a < 1)
+            {
+                co.a += 0.05f;
+                backgroundImage.color = co;
+                yield return new WaitForSecondsRealtime(0.01f);
+            }
+        }
     }
 }
 public enum AccuracyStatus

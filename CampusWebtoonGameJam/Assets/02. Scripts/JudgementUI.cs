@@ -9,6 +9,7 @@ public class JudgementUI : MonoBehaviour
     [SerializeField] private GameObject[] HPObj;
     [SerializeField] private Image AccuracyStatusImg;
     [SerializeField] private Text ComboText;
+    [SerializeField] private Text ScoreText;
 
     [SerializeField] private Sprite [] AccuracyStatusSpr;
 
@@ -70,6 +71,10 @@ public class JudgementUI : MonoBehaviour
     {
         ComboText.text = count.ToString();
     }
+    public void SetScoreoText(int count)
+    {
+        ScoreText.text = count.ToString();
+    }
     public void SetAccuracyStatusUI(AccuracyStatus status)
     {
         if (currentAccuracyCo != null) StopCoroutine(currentAccuracyCo); 
@@ -81,6 +86,10 @@ public class JudgementUI : MonoBehaviour
         co.a = 0;
         AccuracyStatusImg.color = co;
 
+        Color ComboCo = AccuracyStatusImg.color;
+        ComboCo.a = 0;
+        ComboText.color = ComboCo;
+         
         switch (status)
         {
             case AccuracyStatus.perfect:
@@ -99,8 +108,11 @@ public class JudgementUI : MonoBehaviour
         while (AccuracyStatusImg.color.a<=1)
         {
             yield return new WaitForSecondsRealtime(0.01f);
-            co.a+=0.1f;
-            AccuracyStatusImg.color = co;
+            co.a += 0.1f;
+            AccuracyStatusImg.color = co; 
+
+            ComboCo.a += 0.1f;
+            ComboText.color = ComboCo;
         }
         yield return new WaitForSecondsRealtime(0.5f);
         while (AccuracyStatusImg.color.a >= 0)
@@ -108,6 +120,10 @@ public class JudgementUI : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.02f);
             co.a -= 0.1f;
             AccuracyStatusImg.color = co;
+
+            ComboCo.a -= 0.1f;
+            ComboText.color = ComboCo;
         }
     }
+
 }
